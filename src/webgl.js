@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 import Lenis from 'lenis'
-import gsap from 'gsap'
 
 export default class WebGl {
     constructor() {
@@ -11,13 +10,45 @@ export default class WebGl {
         this.planes = []
         this.clock = new THREE.Clock()
 
-        this.initRenderer()
-        this.initCamera()
-        this.initScene()
-        this.initScroll()
-        this.createPlanes()
-        this.addEvents()
-        this.animate()
+        const imageUrls = [...document.querySelectorAll('img')].map(img => img.src)
+
+        this.preloadTextures(imageUrls).then((textures) => {
+            this.loadedTextures = textures // ✅ store the preloaded textures
+            document.getElementById('loader').style.display = 'none'
+
+            this.initRenderer()
+            this.initCamera()
+            this.initScene()
+            this.initScroll()
+            this.createPlanes()
+            this.addEvents()
+            this.animate()
+        })
+    }
+
+    preloadTextures(imageUrls) {
+        return new Promise((resolve, reject) => {
+            const manager = new THREE.LoadingManager()
+            const loader = new THREE.TextureLoader(manager)
+
+            const textures = {}
+
+            manager.onLoad = () => {
+                console.log('✅ All textures loaded.')
+                resolve(textures)
+            }
+
+            manager.onError = url => {
+                console.error('❌ Failed to load:', url)
+                reject(new Error(`Failed to load ${url}`))
+            }
+
+            imageUrls.forEach(url => {
+                loader.load(url, tex => {
+                    textures[url] = tex
+                })
+            })
+        })
     }
 
     initRenderer() {
@@ -98,8 +129,8 @@ export default class WebGl {
         const loader = new THREE.TextureLoader()
 
         this.images.forEach(img => {
-            const texture = loader.load(img.src)
-            const dispTexture = loader.load('./disp4.webp')
+            const texture = this.loadedTextures[img.src] // ✅ use preloaded texture
+            const dispTexture = loader.load('./disp4.webp') // fine as-is
 
             const geometry = new THREE.PlaneGeometry(1, 1, 50, 50)
             const material = this.createMaterial(texture, dispTexture)
@@ -165,7 +196,7 @@ export default class WebGl {
             if (uniforms.u_time) uniforms.u_time.value = elapsed
             if (uniforms.u_intensity) uniforms.u_intensity.value *= 0.95
             if (uniforms.u_scrollSpeed) {
-                uniforms.u_scrollSpeed.value *= 0.9
+                uniforms.u_scrollSpeed.value *= 0.56
                 uniforms.u_scrollSpeed.value += this.scrollSpeed
             }
             uniforms.u_scrollDirection.value = this.scrollDirection

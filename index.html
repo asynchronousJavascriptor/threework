@@ -5,23 +5,81 @@
   <meta charset="UTF-8" />
   <title>GLSL Base Setup</title>
   <style>
+    @font-face {
+      font-family: 'HelveticaNowDisplay';
+      src: url('/fonts/HelveticaNowDisplay-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'HelveticaNowDisplay';
+      src: url('/fonts/HelveticaNowDisplay-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'HelveticaNowDisplay';
+      src: url('/fonts/HelveticaNowDisplay-Light.otf') format('opentype');
+      font-weight: lighter;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'HelveticaNowDisplay';
+      src: url('/fonts/HelveticaNowDisplay-Medium.otf') format('opentype');
+      font-weight: bolder;
+      font-style: normal;
+    }
+
+    * {
+      font-family: "Helvetica Now Display";
+    }
+
     body {
       margin: 0;
       padding: 30px;
-      font-family: sans-serif;
     }
 
-    section {
-      margin-bottom: 130px;
+    section:nth-child(1) {
+      padding-left: 14%;
     }
+
+    section:nth-child(2) {
+      padding-left: 50%;
+    }
+
+    section:nth-child(3) {
+      padding-left: 5%;
+    }
+
+    section:nth-child(4) {
+      padding-left: 60%;
+    }
+
+    section:nth-child(5) {
+      padding-left: 20%;
+    }
+
 
     body:last-child {
       margin-bottom: 0;
     }
 
-    img {
+    section {
+      width: 30rem;
+      vertical-align: top;
+    }
+
+    section p {
       max-width: 100%;
-      display: block;
+      margin-bottom: 30px;
+      word-wrap: break-word;
+    }
+
+    img {
+      width: 100%;
     }
 
     canvas.webgl {
@@ -51,29 +109,27 @@
     Loading...
   </div>
   <section>
-    <h2>Image 1</h2>
-    <p>Description goes here.</p>
-    <img src="/public/img1.jpeg" />
+    <h2>Sunset Over the Mountains</h2>
+    <p>A breathtaking view of the sun setting behind the mountain range, casting warm hues across the sky.</p>
+    <img src="/public/img1.jpeg" alt="Sunset over mountains" />
   </section>
+
   <section>
-    <h2>Image 2</h2>
-    <p>Description goes here.</p>
-    <img src="/public/img2.jpeg" />
+    <h2>Forest Trail in Early Morning</h2>
+    <p>A peaceful forest trail lit by soft morning light, surrounded by dense trees and fresh greenery.</p>
+    <img src="/public/img2.jpeg" alt="Forest trail in morning light" />
   </section>
+
   <section>
-    <h2>Image 2</h2>
-    <p>Description goes here.</p>
-    <img src="/public/img2.jpeg" />
+    <h2>City Skyline at Night</h2>
+    <p>The city comes alive with sparkling lights and tall buildings under a clear night sky.</p>
+    <img src="/public/img2.jpeg" alt="City skyline at night" />
   </section>
+
   <section>
-    <h2>Image 2</h2>
-    <p>Description goes here.</p>
-    <img src="/public/img2.jpeg" />
-  </section>
-  <section>
-    <h2>Image 2</h2>
-    <p>Description goes here.</p>
-    <img src="/public/img2.jpeg" />
+    <h2>Calm Lake Reflection</h2>
+    <p>A still lake perfectly reflecting the sky and trees around it, creating a mirror-like effect.</p>
+    <img src="/public/img2.jpeg" alt="Calm lake with reflections" />
   </section>
 
   <script type="module" src="/src/main.js"></script>

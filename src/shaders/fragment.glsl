@@ -7,8 +7,8 @@ varying vec2 vUv;
 
 void main() {
   float dist = distance(vUv, u_mouse);
-  float sm = smoothstep(.5,.0, dist);
-  vec2 offset = vec2(.005) * u_intensity * sm;
+  float sm = smoothstep(.6,.0, dist);
+  vec2 offset = vec2(.02) * u_intensity * sm;
 
   float r = texture2D(u_image, vUv + offset).r;
   float g = texture2D(u_image, vUv).g;

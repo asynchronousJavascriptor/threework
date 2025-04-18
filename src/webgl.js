@@ -194,7 +194,7 @@ export default class WebGl {
         this.planes.forEach(({ mesh }) => {
             const uniforms = mesh.material.uniforms
             if (uniforms.u_time) uniforms.u_time.value = elapsed
-            if (uniforms.u_intensity) uniforms.u_intensity.value *= 0.95
+            if (uniforms.u_intensity) uniforms.u_intensity.value *= 0.9
             if (uniforms.u_scrollSpeed) {
                 uniforms.u_scrollSpeed.value *= 0.56
                 uniforms.u_scrollSpeed.value += this.scrollSpeed
